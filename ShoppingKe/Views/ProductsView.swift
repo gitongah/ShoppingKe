@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ProductsView: View {
-    @StateObject var viewModel = ShoppingViewModel(networkManager: NetworkManager())
+    @ObservedObject var viewModel: ShoppingViewModel
     let category: String
     
     var filteredProducts: [ShoppingData] {
@@ -36,12 +36,10 @@ struct ProductsView: View {
                         }
                     }
                 }
-            }.navigationTitle("Products")
+            }.navigationTitle(category.capitalized)
                 .navigationDestination(for: ShoppingData.self,) { item in
                     DetailView(item: item)
                     
-                }.onAppear {
-                    viewModel.fetchShoppingData()
                 }
             
         

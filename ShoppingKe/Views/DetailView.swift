@@ -42,7 +42,7 @@ struct DetailView: View {
                 Button {
                     //Action to buy the product
                 } label: {
-                    Text("Buy Now")
+                    Text("Add to Cart ")
                         .font(.headline)
                         .foregroundStyle(.white)
                         .frame(maxWidth: .infinity)

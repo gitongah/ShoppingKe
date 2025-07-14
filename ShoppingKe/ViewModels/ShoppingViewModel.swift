@@ -24,6 +24,8 @@ class ShoppingViewModel: ObservableObject {
     }
     
     func fetchShoppingData() {
+        guard shoppingData.isEmpty else { return }
+        
         let urlString = "https://fakestoreapi.com/products"
         
         guard let url = URL(string: urlString) else {

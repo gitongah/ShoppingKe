@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ContentView: View {
-    @StateObject var viewModel = ShoppingViewModel(networkManager: NetworkManager())
+    @StateObject private var viewModel = ShoppingViewModel(networkManager: NetworkManager())
     var body: some View {
         NavigationStack {
             
@@ -20,7 +20,7 @@ struct ContentView: View {
                 
             }.navigationTitle("Categories")
                 .navigationDestination(for: String.self) { category in
-                    ProductsView(category: category)
+                    ProductsView(viewModel: viewModel, category: category)
                 }
                 .onAppear {
                     viewModel.fetchShoppingData()
