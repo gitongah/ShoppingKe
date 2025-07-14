@@ -11,36 +11,21 @@ struct ContentView: View {
     @StateObject var viewModel = ShoppingViewModel(networkManager: NetworkManager())
     var body: some View {
         NavigationStack {
-            List(viewModel.shoppingData) { item in
-                NavigationLink(value: item) {
-                    HStack(alignment: .top) {
-                        AsyncImage(url: URL(string: item.image)) { image in
-                            image
-                                .resizable()
-                                .aspectRatio(contentMode: .fit)
-                                .frame(width: 70, height: 70)
-                                .clipped()
-                        } placeholder: {
-                            ProgressView()
-                                .frame(width: 44, height: 44)
-                        }
-                        
-                        VStack(alignment: .leading){
-                            Text(item.title)
-                                .font(.headline)
-
-                        }
-                    }
-                }
+            
+            List(viewModel.categories.keys.sorted(), id: \.self) { category  in
+                NavigationLink(value: category) {
+                    Text(category.capitalized)
+                    .font(.headline)
+                    .padding(.vertical, 8)                }
                 
-                
-            }.navigationTitle("Products")
-                .navigationDestination(for: ShoppingData.self) { item in
-                    DetailView(item: item)
+            }.navigationTitle("Categories")
+                .navigationDestination(for: String.self) { category in
+                    ProductsView(category: category)
                 }
                 .onAppear {
                     viewModel.fetchShoppingData()
                 }
+
         }
         
     }

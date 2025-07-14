@@ -30,19 +30,4 @@ class NetworkManager: Network {
             .receive(on: DispatchQueue.main)
             .eraseToAnyPublisher()
     }
-    
-//    func fetchProducts<T: Decodable>(from url: URL) -> AnyPublisher<T, Error> {
-//        URLSession.shared.dataTaskPublisher(for: url)
-//            .tryMap{ (data, response) -> Data in
-//                guard let httpResponse = response as? HTTPURLResponse, 200...299 ~= httpResponse.statusCode else {
-//                    throw URLError(.badServerResponse)
-//                }
-//                return data
-//            }
-//            .decode(type: T.self, decoder: JSONDecoder())
-//            .receive(on: DispatchQueue.main)
-//            .eraseToAnyPublisher()
-//        
-//    }
-    
 }

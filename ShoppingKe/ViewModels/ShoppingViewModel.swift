@@ -8,14 +8,15 @@
 import Foundation
 import Combine
 
-//@Observable
+@Observable
 class ShoppingViewModel: ObservableObject {
     
     private let networkManager: Network
     private var cancellables = Set<AnyCancellable>()
     
-    @Published var shoppingData: [ShoppingData] = []
-    @Published var errorMessage: String? = nil
+    var shoppingData: [ShoppingData] = []
+    var errorMessage: String? = nil
+    var categories: [String: [ShoppingData]] = [:]
     
     
     init(networkManager: Network) {
@@ -41,6 +42,7 @@ class ShoppingViewModel: ObservableObject {
                 }
             }, receiveValue: {[weak self] products in
                 self?.shoppingData = products
+                self?.categories = Dictionary(grouping: products, by: { $0.category })
             })
             .store(in: &cancellables)
     }
